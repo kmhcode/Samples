@@ -1,0 +1,32 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<PageTitle>DemoApp</PageTitle>
+
+<h1>Welcome Product Manager</h1>
+<hr/>
+@if(Inventory?.Count > 0)
+{
+    <table>
+        <tr>
+            <th>Product No</th>
+            <th>Current Stock</th>
+            <th>Unit Price</th>
+        </tr>
+        @foreach(var item in Inventory)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Stock</td>
+                <td>
+                    <input type="number" @bind="item.Price" />
+                </td>
+                <td>
+                    <button @onclick="() => SaveProduct(item)">Save</button>
+                </td>
+            </tr>
+        }
+    </table>
+}
+<hr/>
+<Clock OutputFormat="yyyy-MM-dd HH:mm:ss"/>

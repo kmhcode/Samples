@@ -1,0 +1,17 @@
+﻿using System.Runtime.InteropServices;
+
+class Program
+{
+    delegate long GreatestDivisorFunc(long first, long second);
+
+    static void Main(string[] args)
+    {
+        long m = long.Parse(args[0]);
+        long n = long.Parse(args[1]);
+        nint dijkstraLib = NativeLibrary.Load("native/libdijkstra.so");
+        nint gcdFn = NativeLibrary.GetExport(dijkstraLib, "GCD");
+        var greatestDivisior = Marshal.GetDelegateForFunctionPointer<GreatestDivisorFunc>(gcdFn);
+        Console.WriteLine("G.C.D = {0}", greatestDivisior(m, n));
+        NativeLibrary.Free(dijkstraLib);
+    }
+}

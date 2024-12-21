@@ -1,0 +1,32 @@
+﻿@page "/"
+@rendermode InteractiveWebAssembly
+
+<PageTitle>Client - DemoApp</PageTitle>
+
+<h1>Welcome Customer</h1>
+<hr/>
+<h3>Your Orders</h3>
+<input type="text" placeholder="User Name" @bind="Login.UserName"/>
+<input type="password" placeholder="Password" @bind="Login.Password"/>
+<button @onclick="FetchCustomerInvoice">Fetch</button>
+<h3>@ErrorReport</h3>
+@if(Invoice?.Count > 0)
+{
+    <table border="1">
+        <tr>
+            <th>Product No</th>
+            <th>Quantity</th>
+            <th>Orders Date</th>
+        </tr>
+        @foreach(var entry in Invoice)
+        {
+            <tr>
+                <td>@entry.ProductNo</td>
+                <td>@entry.Quantity</td>
+                <td>@entry.OrderDate</td>
+            </tr>
+        }
+    </table>
+}
+<hr/>
+<Clock OutputFormat="yyyy-MM-dd HH:mm:ss" />

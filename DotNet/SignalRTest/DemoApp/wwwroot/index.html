@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>DemoApp</title>
+        <script src="scripts/signalr.js"></script>
+    </head>
+    <body>
+        <h1 id="messageOutput">Welcome Visitor</h1>
+        <p>
+            <b>Your: </b>
+            <input id="nameInput" type="text" placeholder="Name"/>
+            <input id="ageInput" type="number" placeholder="Age"/>
+            <button id="goAction">Go</button>
+        </p>
+        <h3 id="greetingOutput"></h3>
+        <hr/>
+        <span id="winnerOutput">Please wait...</span>
+        <script>
+            const remote = new signalR.HubConnectionBuilder()
+                .withUrl("welcome")
+                .build();
+            window.onload = async function() {
+                await remote.start();
+            };
+            document.getElementById("goAction").onclick = async function() {
+                const name = document.getElementById("nameInput").value;
+                const age = document.getElementById("ageInput").valueAsNumber;
+                document.getElementById("messageOutput").innerText = await remote.invoke("Greet", name, age);
+            };
+            remote.on("ReceiveGreeting", greeting => 
+                document.getElementById("greetingOutput").innerText = `Number of greetings is ${greeting.number} as of ${greeting.moment}`
+            );
+            remote.on("ReceiveWinner", winner => 
+                document.getElementById("winnerOutput").innerText = `Winning number is ${winner}`
+            );
+        </script>    
+    </body>
+</html>

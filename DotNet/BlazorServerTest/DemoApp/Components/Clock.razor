@@ -1,0 +1,19 @@
+<span>@CurrentTime</span>
+
+@code {
+
+    public string? CurrentTime { get; set; }
+
+    [Parameter]
+    public string? OutputFormat { get; set; }
+
+    protected override void OnInitialized()
+    {
+        CurrentTime = DateTime.Now.ToString(OutputFormat);
+        new Timer(state => 
+        {
+            CurrentTime = DateTime.Now.ToString(OutputFormat);
+            InvokeAsync(StateHasChanged);
+        }, null, 1000, 1000);   
+    }
+}
