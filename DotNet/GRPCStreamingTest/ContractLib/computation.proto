@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package computation;
+
+service ComputeSupport {
+	rpc GenerateValues(DataRange) returns (stream DataItem);
+	rpc CombineValues(stream DataItem) returns (DataItem);
+}
+
+message DataRange{
+	double lower = 1;
+	double upper = 2;
+	int32 count = 3;
+}
+
+message DataItem{
+	double value = 1;
+}
+
+
+
