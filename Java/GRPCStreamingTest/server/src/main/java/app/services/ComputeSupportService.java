@@ -13,8 +13,8 @@ public class ComputeSupportService extends ComputeSupportImplBase {
 
     @Override
     public void generateValues(DataRange request, StreamObserver<DataItem> responseObserver) {
-		double min = request.getLower();
-		double max = request.getUpper();
+	double min = request.getLower();
+	double max = request.getUpper();
         for(int i = 0; i < request.getCount(); ++i){
             double sample = rdm.nextDouble(min, max);
             responseObserver.onNext(DataItem.newBuilder().setValue(sample).build());
