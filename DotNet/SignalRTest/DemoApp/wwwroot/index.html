@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <title>DemoApp</title>
+        <script src="scripts/signalr.js"></script>
+    </head>
+    <body>
+        <h1>Welcome to Auction</h1>
+        <h3>Current Price is <span id="priceOutput">...</span></h3>
+        <b>Your Offer:</b>
+        <input id="priceInput" type="number"/>
+        <button id="bidAction">Bid</button>
+        <hr/>
+        <i>Remaining time is </i><span id="timeOutput">...</span>
+        <script>
+            const remote = new signalR.HubConnectionBuilder()
+                .withUrl("/auction")
+                .build();
+            window.onload = async function() {
+                await remote.start();
+                document.getElementById("priceOutput").innerText = await remote.invoke("AcceptBid", 0);
+            };
+            document.getElementById("bidAction").onclick = async function() {
+                const price = document.getElementById("priceInput").valueAsNumber;
+                document.getElementById("priceOutput").innerText = await remote.invoke("AcceptBid", price);
+            };
+            remote.on("BidAccepted", price => 
+                document.getElementById("priceOutput").innerText = price
+            );
+            remote.on("TimeRemaining", time => 
+                document.getElementById("timeOutput").innerText = time
+            );
+        </script>
+    </body>
+</html>
