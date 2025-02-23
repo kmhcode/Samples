@@ -1,0 +1,14 @@
+/home/unipro/Practice/DotNet/PlatformInvokeTest/DemoApp1/obj/Debug/net9.0/DemoApp1.GeneratedMSBuildEditorConfig.editorconfig
+/home/unipro/Practice/DotNet/PlatformInvokeTest/DemoApp1/obj/Debug/net9.0/DemoApp1.AssemblyInfoInputs.cache
+/home/unipro/Practice/DotNet/PlatformInvokeTest/DemoApp1/obj/Debug/net9.0/DemoApp1.AssemblyInfo.cs
+/home/unipro/Practice/DotNet/PlatformInvokeTest/DemoApp1/obj/Debug/net9.0/DemoApp1.csproj.CoreCompileInputs.cache
+/home/unipro/Practice/DotNet/PlatformInvokeTest/DemoApp1/bin/Debug/net9.0/DemoApp1
+/home/unipro/Practice/DotNet/PlatformInvokeTest/DemoApp1/bin/Debug/net9.0/DemoApp1.deps.json
+/home/unipro/Practice/DotNet/PlatformInvokeTest/DemoApp1/bin/Debug/net9.0/DemoApp1.runtimeconfig.json
+/home/unipro/Practice/DotNet/PlatformInvokeTest/DemoApp1/bin/Debug/net9.0/DemoApp1.dll
+/home/unipro/Practice/DotNet/PlatformInvokeTest/DemoApp1/bin/Debug/net9.0/DemoApp1.pdb
+/home/unipro/Practice/DotNet/PlatformInvokeTest/DemoApp1/obj/Debug/net9.0/DemoApp1.dll
+/home/unipro/Practice/DotNet/PlatformInvokeTest/DemoApp1/obj/Debug/net9.0/refint/DemoApp1.dll
+/home/unipro/Practice/DotNet/PlatformInvokeTest/DemoApp1/obj/Debug/net9.0/DemoApp1.pdb
+/home/unipro/Practice/DotNet/PlatformInvokeTest/DemoApp1/obj/Debug/net9.0/DemoApp1.genruntimeconfig.cache
+/home/unipro/Practice/DotNet/PlatformInvokeTest/DemoApp1/obj/Debug/net9.0/ref/DemoApp1.dll
