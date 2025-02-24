@@ -1,4 +1,6 @@
 import java.lang.foreign.Arena;
+import java.lang.foreign.FunctionDescriptor;
+import java.lang.foreign.Linker;
 //import java.lang.foreign.MemorySegment;
 import java.lang.foreign.SymbolLookup;
 import java.lang.invoke.MethodHandles;
@@ -16,13 +18,21 @@ class Program {
         long m = Long.parseUnsignedLong(args[0]);
         int n = Integer.parseInt(args[1]);
         var primesLib = SymbolLookup.libraryLookup("../native/libprimes.so", Arena.global());
-        var primesFetchHandle = NativeHelper.importFunction(primesLib, "primes_fetch", JAVA_LONG, JAVA_LONG, JAVA_INT, ADDRESS, ADDRESS);
+        var primesFetchHandle = Linker.nativeLinker().downcallHandle(
+            primesLib.findOrThrow("primes_fetch"), 
+            FunctionDescriptor.of(JAVA_LONG, JAVA_LONG, JAVA_INT, ADDRESS, ADDRESS));
+        var isFavoriteHandle = MethodHandles.lookup().findStatic(
+            Program.class, 
+            "isFavorite", 
+            MethodType.methodType(boolean.class, long.class)); 
         try(var arena = Arena.ofConfined()){
             var store = arena.allocate(JAVA_LONG, n);
             //primesFetchHandle.invoke(m, n, MemorySegment.NULL, store);
-            var isFavoriteHandle = MethodHandles.lookup().findStatic(Program.class, "isFavorite", MethodType.methodType(boolean.class, long.class)); //MethodHandles.lookup().unreflect(Program.class.getDeclaredMethod("isFavorite", long.class));
-            var isFavoriteSegment = NativeHelper.exportMethod(arena, isFavoriteHandle, JAVA_BOOLEAN, JAVA_LONG);
-            primesFetchHandle.invoke(m, n, isFavoriteSegment, store);
+            var isFavoriteStub = Linker.nativeLinker().upcallStub(
+                isFavoriteHandle, 
+                FunctionDescriptor.of(JAVA_BOOLEAN, JAVA_LONG), 
+                arena);
+            primesFetchHandle.invoke(m, n, isFavoriteStub, store);
             long[] primes = store.toArray(JAVA_LONG);
             for(long prime : primes)
                 System.out.println(prime);
