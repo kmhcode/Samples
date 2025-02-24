@@ -17,9 +17,9 @@ class Program {
     public static void main(String[] args) throws Throwable {
         long m = Long.parseUnsignedLong(args[0]);
         int n = Integer.parseInt(args[1]);
-        var primesLib = SymbolLookup.libraryLookup("../native/libprimes.so", Arena.global());
+        var primesLibLookup = SymbolLookup.libraryLookup("../native/libprimes.so", Arena.global());
         var primesFetchHandle = Linker.nativeLinker().downcallHandle(
-            primesLib.findOrThrow("primes_fetch"), 
+            primesLibLookup.find("primes_fetch").get(), 
             FunctionDescriptor.of(JAVA_LONG, JAVA_LONG, JAVA_INT, ADDRESS, ADDRESS));
         var isFavoriteHandle = MethodHandles.lookup().findStatic(
             Program.class, 
@@ -33,9 +33,8 @@ class Program {
                 FunctionDescriptor.of(JAVA_BOOLEAN, JAVA_LONG), 
                 arena);
             primesFetchHandle.invoke(m, n, isFavoriteStub, store);
-            long[] primes = store.toArray(JAVA_LONG);
-            for(long prime : primes)
-                System.out.println(prime);
+            for(int i = 0; i < n; i++)
+                System.out.println(store.getAtIndex(JAVA_LONG, i));
         }
     }
 }
