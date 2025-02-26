@@ -13,7 +13,7 @@ class Program {
             SymbolLookup.loaderLookup().findOrThrow("depreciation"), 
             FunctionDescriptor.of(ValueLayout.JAVA_DOUBLE, ValueLayout.JAVA_INT, ValueLayout.JAVA_INT));
         for(int n = 1; n < l; ++n){
-            double d = (double)depreciationHandle.invoke(l, n);
+            double d = (double)depreciationHandle.invokeExact(l, n);
             System.out.printf("%d\t%.2f%n", n, p * (1 - d));
         }
     }
