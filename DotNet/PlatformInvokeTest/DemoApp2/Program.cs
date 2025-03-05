@@ -19,7 +19,7 @@ unsafe class Program
         else
         {
             int n = int.Parse(args[1]);
-            Span<ulong> primes = n > 8 ? new ulong[n] : stackalloc ulong[n];
+            ulong[] primes = new ulong[n];
             fixed(ulong* store = &primes[0])
             {
                 FetchPrimes(m, n, &IsFavorite, store);
