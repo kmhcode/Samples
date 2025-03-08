@@ -1,0 +1,3 @@
+javac -d classes *.java
+java -cp classes -Djava.library.path=native --enable-native-access=ALL-UNNAMED Program $*
+
