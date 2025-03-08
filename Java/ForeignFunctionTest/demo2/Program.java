@@ -27,18 +27,18 @@ class Program {
             "isFavorite", 
             MethodType.methodType(boolean.class, long.class));
         try(Arena arena = Arena.ofConfined()){
-            MemorySegment first = arena.allocate(JAVA_LONG, n);
+            MemorySegment primes = arena.allocate(JAVA_LONG, n);
             if(n == 1){
-                primesFetchHandle.invokeExact(m, 1, first, MemorySegment.NULL);
+                primesFetchHandle.invokeExact(m, 1, primes, MemorySegment.NULL);
             }else{
                 MemorySegment isFavoriteStub = Linker.nativeLinker().upcallStub(
                     isFavoriteHandle, 
                     FunctionDescriptor.of(JAVA_BOOLEAN, JAVA_LONG),
                     arena);
-                primesFetchHandle.invokeExact(m, n, first, isFavoriteStub);
+                primesFetchHandle.invokeExact(m, n, primes, isFavoriteStub);
             }
             for(int i = 0; i < n; ++i)
-                System.out.println(first.getAtIndex(JAVA_LONG, i));
+                System.out.println(primes.getAtIndex(JAVA_LONG, i));
         }
     }
 }
