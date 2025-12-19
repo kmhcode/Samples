@@ -13,7 +13,7 @@ builder.Plugins.AddFromObject(new DiscountAgent());
 var kernel = builder.Build();
 var executionSettings = new OpenAIPromptExecutionSettings
 {
-    ToolCallBehavior = ToolCallBehavior.EnableKernelFunctions,
+    FunctionChoiceBehavior = FunctionChoiceBehavior.Required(null, false),
     Temperature = 0 //range: 0.0(pure logic) - 1.0(high creativity)
 };
 var chatHistory = new ChatHistory(args[0], AuthorRole.User);
