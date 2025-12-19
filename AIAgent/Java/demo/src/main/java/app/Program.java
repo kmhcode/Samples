@@ -7,7 +7,7 @@ import dev.langchain4j.service.Result;
 public class Program {
     
     interface Assistant {
-        Result<String> ask(String question);
+        Result<String> prompt(String question);
     }
 
     public static void main(String[] args) throws Exception {
@@ -22,7 +22,7 @@ public class Program {
             .chatModel(model)
             .tools(new DiscountAgent())
             .build();
-        var toolResults = chatService.ask(args[0])
+        var toolResults = chatService.prompt(args[0])
             .toolExecutions();
         if(toolResults.size() > 0){
             var reply = toolResults.get(0);
