@@ -1,7 +1,0 @@
-mkdir -p dist/target
-[ -e target/classes ] && cp -r target/classes dist/target
-[ -e target/dependency ] && cp -r target/dependency dist/target
-cp opt dist
-echo 'java @opt -cp target/classes:target/dependency/* app.Program $*' > dist/run
-chmod +x dist/run
-
