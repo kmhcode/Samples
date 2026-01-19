@@ -1,0 +1,8 @@
+model: "openai:default-llm"
+provider-url: "http://iitdac.met.edu/learn-ai/v1"
+provider-api-key: "sk-met-9876543210fedcbaabcdef0123456789"
+mcpServers:
+  demo-mcp-server:
+    type: "stdio"
+    command: "java"
+    args: ["-jar", "./target/demo-1.0.0.jar"]

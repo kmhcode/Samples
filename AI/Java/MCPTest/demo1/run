@@ -1,0 +1,5 @@
+if mvn -q clean package; then
+	java -jar target/demo-1.0.0.jar
+fi
+
+
